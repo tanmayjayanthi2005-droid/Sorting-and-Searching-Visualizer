@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Visualizer | Sorting & Searching</title>
+    <meta name="description" content="Interactive tool to visualize sorting and searching algorithms with step-by-step animations">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Sorting & Searching Visualizer</h1>
+    </header>
+    
+    <div id="operation-container">
+        <h2>Select an Operation</h2>
+        <div class="button-group">
+            <button onclick="selectOperation('sorting')" class="primary-btn">Sorting Algorithms</button>
+            <button onclick="selectOperation('searching')" class="primary-btn">Searching Algorithms</button>
+        </div>
+    </div>
+    
+    <div id="sorting-container" class="hidden">
+        <h2>Sorting Options</h2>
+        <div class="input-group">
+            <input type="text" id="userInput" placeholder="Enter numbers separated by commas (e.g., 5,3,8,1,9)">
+            <div class="button-group">
+                <button onclick="generateArray(true)" title="Use your custom input">Use Input</button>
+                <button onclick="generateArray(false)" title="Generate random numbers">Random Test Case</button>
+            </div>
+        </div>
+        
+        <div class="control-panel">
+            <h3>Select Sorting Algorithm</h3>
+            <div class="algorithm-buttons">
+                <button onclick="startSorting('bubbleSort')" class="algo-btn">Bubble Sort</button>
+                <button onclick="startSorting('insertionSort')" class="algo-btn">Insertion Sort</button>
+                <button onclick="startSorting('selectionSort')" class="algo-btn">Selection Sort</button>
+                <button onclick="startSorting('mergeSort')" class="algo-btn">Merge Sort</button>
+                <button onclick="startSorting('quickSort')" class="algo-btn">Quick Sort</button>
+            </div>
+            <button id="stopSort" onclick="stopAndReset()" class="control-btn">
+                <span class="icon">⏹</span> Stop & Reset
+            </button>
+        </div>
+        
+        <div class="algorithm-info">
+            <h3 id="current-algorithm-name">Algorithm Details</h3>
+            <p id="algorithm-description"></p>
+            <div class="complexity">
+                <div class="complexity-item">Time: <span id="time-complexity"></span></div>
+                <div class="complexity-item">Space: <span id="space-complexity"></span></div>
+                <div class="complexity-item">Best Case: <span id="best-case"></span></div>
+                <div class="complexity-item">Worst Case: <span id="worst-case"></span></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="searching-container" class="hidden">
+        <h2>Searching Options</h2>
+        <div class="input-group">
+            <input type="text" id="searchInput" placeholder="Enter numbers separated by commas (sorted for binary search)">
+            <div class="button-group">
+                <button onclick="generateSearchArray(true)" title="Use your custom input">Use Input</button>
+                <button onclick="generateSearchArray(false)" title="Generate random sorted numbers">Random Test Case</button>
+            </div>
+        </div>
+        
+        <div class="target-input">
+            <input type="number" id="target" placeholder="Enter target element to search">
+        </div>
+        
+        <div class="control-panel">
+            <h3>Select Searching Algorithm</h3>
+            <div class="algorithm-buttons">
+                <button onclick="startSearching('linearSearch')" class="algo-btn">Linear Search</button>
+                <button onclick="startSearching('binarySearch')" class="algo-btn">Binary Search</button>
+            </div>
+            <button id="stopSearch" onclick="stopAndReset()" class="control-btn">
+                <span class="icon">⏹</span> Stop & Reset
+            </button>
+        </div>
+        
+        <div class="algorithm-info">
+            <h3 id="current-search-algorithm">Algorithm Details</h3>
+            <p id="search-algorithm-description"></p>
+            <div class="complexity">
+                <div class="complexity-item">Time: <span id="search-time-complexity"></span></div>
+                <div class="complexity-item">Space: <span id="search-space-complexity"></span></div>
+                <div class="complexity-item">Best Case: <span id="search-best-case"></span></div>
+                <div class="complexity-item">Requirements: <span id="search-requirements"></span></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="visualization-controls">
+        <div class="speed-control">
+            <label for="speedSlider">Animation Speed:</label>
+            <input type="range" id="speedSlider" min="1" max="100" value="50" oninput="updateSpeed()">
+            <span id="speedValue">Medium</span>
+        </div>
+        <div class="step-controls">
+            <button id="stepToggle" onclick="toggleStepByStep()">Enable Step Mode</button>
+            <button id="nextStep" class="hidden">Next Step</button>
+        </div>
+    </div>
+    
+    <div class="array-container">
+        <!-- Array elements will be dynamically inserted here -->
+    </div>
+    
+    <div id="status-display">
+        <p id="operation-status">Select an operation above to begin visualization</p>
+    </div>
+    
+    <div class="recursion-display hidden">
+        <h4>Recursion Visualization</h4>
+        <div class="recursion-info"></div>
+    </div>
+    
+    <div class="merge-steps hidden">
+        <!-- Merge sort steps will be displayed here -->
+    </div>
+    
+    <div class="partition-info hidden">
+        <!-- Quick sort partition information will be shown here -->
+    </div>
+    
+    <footer>
+        <p>An interactive tool to visualize and understand algorithms</p>
+    </footer>
+</body>
+</html>
